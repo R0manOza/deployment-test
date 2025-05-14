@@ -41,6 +41,6 @@ app.get('/api/get-answer', (req, res) => {
 
 app.listen(PORT, '0.0.0.0', () => { // Listen on all network interfaces
     console.log(`Backend server running on port ${PORT}`);
-    console.log(`POST endpoint: http://<your-ec2-ip>:${PORT}/api/create-answer`);
-    console.log(`GET endpoint:  http://<your-ec2-ip>:${PORT}/api/get-answer`);
+    console.log(`POST endpoint: http://51.21.182.138:${PORT}/api/create-answer`);
+    console.log(`GET endpoint:  http://51.21.182.138:${PORT}/api/get-answer`);
 });
