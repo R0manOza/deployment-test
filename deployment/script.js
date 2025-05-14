@@ -1,13 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     const answerSpan = document.getElementById('answer');
     const refreshButton = document.getElementById('refresh-button');
-
-    
-    const backendGetDataUrl = 'http://51.21.182.138:3001/api/get-answer';
-
+     const dataInput = document.getElementById('data-input');
+    const sendButton = document.getElementById('send-button');
+    const sendStatusDiv = document.getElementById('send-status');
+    const backendBaseUrl = 'http://localhost:3001';
+     const backendGetDataUrl = `${backendBaseUrl}/api/get-answer`;
+    const backendPostDataUrl = `${backendBaseUrl}/api/create-answer`;
 
     async function fetchAndDisplayAnswer() {
-        answerSpan.textContent = 'Loading...'; 
+        answerSpan.textContent = 'Loading...';
         try {
             const response = await fetch(backendGetDataUrl);
             if (!response.ok) {
