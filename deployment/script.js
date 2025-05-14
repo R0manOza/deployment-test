@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // IMPORTANT: 
     // For local testing, usrl was localhost will be different when deployed.:
-    const backendGetDataUrl = 'http://localhost:3001/api/get-answer';
+    const backendGetDataUrl = 'http://51.21.182.138:3001/api/get-answer';
 
 
     async function fetchAndDisplayAnswer() {
