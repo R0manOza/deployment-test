@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
      const dataInput = document.getElementById('data-input');
     const sendButton = document.getElementById('send-button');
     const sendStatusDiv = document.getElementById('send-status');
-    const backendBaseUrl = 'http://localhost:3001';
+    const backendBaseUrl = 'http://51.21.182.138:3001';
      const backendGetDataUrl = `${backendBaseUrl}/api/get-answer`;
     const backendPostDataUrl = `${backendBaseUrl}/api/create-answer`;
 
