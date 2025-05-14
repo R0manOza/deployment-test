@@ -2,8 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const answerSpan = document.getElementById('answer');
     const refreshButton = document.getElementById('refresh-button');
 
-    // IMPORTANT: 
-    // For local testing, usrl was localhost will be different when deployed.:
+    
     const backendGetDataUrl = 'http://51.21.182.138:3001/api/get-answer';
 
 
@@ -25,9 +24,55 @@ document.addEventListener('DOMContentLoaded', () => {
             answerSpan.textContent = 'Error fetching data.';
         }
     }
+     async function sendDataToBackend() {
+        const dataToSend = dataInput.value.trim();
+        sendStatusDiv.textContent = ''; // Clear previous status
+
+        if (!dataToSend) {
+            sendStatusDiv.textContent = 'Error: Please enter some data to send.';
+            sendStatusDiv.style.color = 'red';
+            return;
+        }
+
+        sendStatusDiv.textContent = 'Sending...';
+        sendStatusDiv.style.color = 'blue';
+
+        try {
+            const response = await fetch(backendPostDataUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ data: dataToSend }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({ message: "Unknown server error" }));
+                throw new Error(`HTTP error! status: ${response.status} - ${errorData.message}`);
+            }
+
+            const result = await response.json();
+            console.log("Backend response to POST:", result);
+            sendStatusDiv.textContent = `Success: "${result.currentData}" sent and stored!`;
+            sendStatusDiv.style.color = 'green';
+            dataInput.value = ''; // Clear the input field
+
+            // Automatically refresh the displayed answer
+            fetchAndDisplayAnswer();
+
+        } catch (error) {
+            console.error("Could not send data:", error);
+            sendStatusDiv.textContent = `Error sending data: ${error.message}`;
+            sendStatusDiv.style.color = 'red';
+        }
+    }
 
     // Fetch data when the page loads
     fetchAndDisplayAnswer();
+   
+
+    // Add event listener to the send button
+    sendButton.addEventListener('click', sendDataToBackend);
 
     // Add event listener to the refresh button
     refreshButton.addEventListener('click', fetchAndDisplayAnswer);
